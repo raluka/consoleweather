@@ -12,7 +12,7 @@ def get_user_location
   end
 end
 
-def get_weather
+def get_url_response
   file = open(WEATHER_URL + @location)
   @contents = file.read
 end
@@ -25,10 +25,14 @@ def tell_weather
   puts "The weather in #{ @location } is : #{@weather_description}"
 end
 
+def has_weather?
+  parse_response["cod"] == 200
+end
+
 def run
   get_user_location
-  get_weather
-  if parse_response["cod"] == 200
+  get_url_response
+  if has_weather?
     weather = parse_response["weather"]
     @weather_description = weather[0].fetch('description')
     tell_weather
