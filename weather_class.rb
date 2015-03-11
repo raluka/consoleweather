@@ -35,29 +35,32 @@ class Weather
 end
 
 ############################
+class UserIO
 
-puts "Where do you want to travel today? You can choose 2 cities to compare weather.
+
+  puts "Where do you want to travel today? You can choose multiple cities to compare weather. Press '0' to view result.
 Choose a language to display required information. For example, choose 'en' for English."
-puts
-puts "English - en, Russian - ru, Italian - it, Spanish - es, Ukrainian - uk, German - de,
+  puts
+  puts "English - en, Russian - ru, Italian - it, Spanish - es, Ukrainian - uk, German - de,
 Portuguese - pt, Romanian - ro, Polish - pl, Finnish - fi, Dutch - nl, French - fr,
 Bulgarian - bg, Swedish - sv, Chinese Traditional - zh_tw, Chinese Simplified - zh,
 Turkish - tr, Croatian - hr, Catalan - ca"
-puts
-puts "Choose first city you want to check."
-city_1 = gets.chomp.capitalize
+  puts
 
-puts "What is your chosen language to display information about this city?"
-language_1 = gets.chomp.downcase
+  def user_response
+    response = {}
+    loop do
+      puts "Choose a city you want to check.Press '0' if none."
+      city = gets.chomp.capitalize
+      break if city == "0"
+      puts "What is your chosen language to display information about this city?"
+      language = gets.chomp.downcase
+      response.store(city, language)
+    end
+    response
+  end
 
-puts "Choose second city."
-city_2 = gets.chomp.capitalize
-
-puts "What is your chosen language to display information about this city?"
-language_2 = gets.chomp.downcase
-
-weather_1 = Weather.new(city_1, language_1)
-weather_2 = Weather.new(city_2, language_2)
+  user_choice = user_response
 
 table = Terminal::Table.new do |t|
   t.title = "Weather around the Globe"
@@ -69,5 +72,5 @@ end
 
 puts table
 
-
+end
 

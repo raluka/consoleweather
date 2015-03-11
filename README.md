@@ -26,8 +26,8 @@ ConsoleWeather Application. Please commit useful increments to build up your his
     Encapsulating logic into functions
     Using a Constant to store the permanent part of the API URL.
     Not using additional global variables.
-2. Allow the user to enter 2 locations
-    The Application asks for two locations.
+2. Allow the user to enter multiple locations.
+    The Application asks for locations until break command is reached.
     The result should include the current weather description, the temperature in Celsius and the humidity in %.
     The weather data should be printed in a table like structure.
 3. Next think about what must be changed if we allow the user to just enter 1 location and not a second location. Then implement it.
