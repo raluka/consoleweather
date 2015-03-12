@@ -16,20 +16,18 @@ class Weather
     file.read
   end
 
-  def parse_response
-    JSON.parse(get_url_response)
-  end
+  @response = JSON.parse(get_url_response)
 
   def weather_description
-    parse_response["weather"][0]['description']
+    @response["weather"][0]['description']
   end
 
   def weather_humidity
-    parse_response["main"]['humidity']
+    @response["main"]['humidity']
   end
 
   def weather_temperature
-    parse_response["main"]['temp'].to_i
+    @response["main"]['temp'].to_i
   end
 
 end
@@ -47,30 +45,34 @@ Bulgarian - bg, Swedish - sv, Chinese Traditional - zh_tw, Chinese Simplified - 
 Turkish - tr, Croatian - hr, Catalan - ca"
   puts
 
-  def user_response
-    response = {}
+  def user_input
+    input = []
     loop do
       puts "Choose a city you want to check.Press '0' if none."
       city = gets.chomp.capitalize
       break if city == "0"
       puts "What is your chosen language to display information about this city?"
       language = gets.chomp.downcase
-      response.store(city, language)
+      weather = Weather.new(city, language)
+      input.push(weather)
     end
-    response
+    input
   end
 
-  user_choice = user_response
 
-table = Terminal::Table.new do |t|
-  t.title = "Weather around the Globe"
-  t.headings = 'City', 'Weather Description', 'Temperature', 'Humidity'
-  t << [city_1, weather_1.weather_description, weather_1.weather_temperature, weather_1.weather_humidity]
-  t << :separator
-  t << [city_2, weather_2.weather_description, weather_2.weather_temperature, weather_2.weather_humidity]
-end
+  def create_table
+    title = "Weather around the Globe"
+    headers = ['City', 'Weather Description', 'Temperature', 'Humidity']
+    n = 55
+    puts title.center(n)
+    puts
+    n.times { print "-" }
+    puts
+    head = "| " + headers.join(" | ") + " |"
+    puts head
+    n.times { print "-" }
+  end
 
-puts table
 
 end
 
