@@ -6,23 +6,31 @@ class Weather
   WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q="
 
   attr_reader :city
+
   def initialize(city, language)
     @city = city
     @language = language
+    @file = get_url_response
   end
 
   def get_url_response
-    file = open(WEATHER_URL + @city + "&lang=" + @language + "&units=metric")
-    file.read
+    p 'here'
+    open(WEATHER_URL + @city + "&lang=" + @language + "&units=metric").read
   end
 
   def parse_response
-    JSON.parse(get_url_response)
+    @result = JSON.parse(@file)
+    if @result['cod'].to_i == 200
+      @result
+    else
+      puts "city:#{city} not found"
+      exit(1)
+    end
   end
 
 
   def weather_description
-    parse_response["weather"][0]['description']
+    parse_response.fetch('weather')[0].fetch('description')
   end
 
   def weather_humidity
@@ -33,6 +41,7 @@ class Weather
     parse_response["main"]['temp'].to_i
   end
 
+
 end
 
 ############################
@@ -42,9 +51,7 @@ class UserIO
   end
 
 
-
   def user_input
-=begin
     loop do
       puts "Choose a city you want to check.Press '0' if none."
       city = gets.chomp.capitalize
@@ -54,14 +61,13 @@ class UserIO
       weather = Weather.new(city, language)
       @input.push(weather)
     end
-=end
-    @input = [Weather.new("Berlin", "en"), Weather.new("London", "en")]
+    # @input = [Weather.new("Berlin", "en"), Weather.new("London", "en")]
   end
 
   def create_rows(arry)
-    arry.map do |item|
+    arry.each do |item|
       information = [item.city, item.weather_description, item.weather_temperature, item.weather_humidity]
-      row = "| " + information.join("      | ") + "      |"
+      row = "| " + information.join(" | ") + " |"
       puts row
     end
   end
@@ -95,3 +101,5 @@ puts
 user = UserIO.new
 user.user_input
 user.create_table
+
+
