@@ -40,10 +40,10 @@ Allow the user to specify in which localisation (= Language and Culture) he/she 
 Present the weather as text based pictograms. Draw a snowman if they had more than 5 centimetres of snow.
 My idea how it might look like:
 
-| Location | Weather             | Temperature | Humidity | Pic   |
-+----------+---------------------+-------------+----------+-------+
-| Berlin   | ein paar Wolken     |     2.00 ˚C |     72 % |  ~  ~ |
-| Moscow   | überwiegend bewölkt |   -10.13 ˚C |     70 % | ~~ ~~ |
+    | Location | Weather             | Temperature | Humidity | Pic   |
+    +----------+---------------------+-------------+----------+-------+
+    | Berlin   | ein paar Wolken     |     2.00 ˚C |     72 % |  ~  ~ |
+    | Moscow   | überwiegend bewölkt |   -10.13 ˚C |     70 % | ~~ ~~ |
 
 -------------------------------------------------------------------------------------------------------------
 

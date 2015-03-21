@@ -7,7 +7,7 @@ class Weather
   end
 
   def description
-    @response.fetch('weather') { {} }[0].fetch('description') { 'none' }
+    @response.fetch('weather') { [{}] }[0].fetch('description') { 'none' }
   end
 
   def temp
